@@ -3,6 +3,7 @@ CPP = i686-elf-g++
 AS = i686-elf-as
 QEMU = qemu-system-i386
 OBJFILES = obj
+KERNEL_FILE = grp9os.bin
 
 CCFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 CPPFLAGS = -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
@@ -17,13 +18,13 @@ $(OBJFILES):
 	$(AS) -o $(OBJFILES)/asmdrivers.o drivers/*.s
 	$(AS) -o $(OBJFILES)/boot.o boot.s
 
-myos.bin: $(OBJFILES)
-	$(CC) $(CCLDFLAGS) -o myos.bin $(OBJFILES)/*.o
+$(KERNEL_FILE): $(OBJFILES)
+	$(CC) $(CCLDFLAGS) -o $(KERNEL_FILE) $(OBJFILES)/*.o
 
-build: myos.bin
+build: $(KERNEL_FILE)
 
-run: myos.bin
-	$(QEMU) -kernel myos.bin
+run: $(KERNEL_FILE)
+	$(QEMU) -kernel $(KERNEL_FILE)
 
 clean:
 	rm -f *.o *.bin a.out

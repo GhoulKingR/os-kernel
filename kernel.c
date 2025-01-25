@@ -7,7 +7,7 @@
 
 void kernel_main(void) {
 	terminal_initialize();
-	terminal_writestring("Welcome to myos!\n");
+	terminal_writestring("Welcome to grp9os!\n");
 
 	while(true) {
 		terminal_writestring("> ");
