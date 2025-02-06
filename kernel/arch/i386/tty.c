@@ -1,6 +1,6 @@
-#include "vga.h"
+#include "../../include/kernel/tty.h"
 
-#include "../includes/string.h"
+#include "../../../libc/include/string.h"
 #include <stdint.h>
 
 // Hardware text mode color constants

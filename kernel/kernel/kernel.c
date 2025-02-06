@@ -2,8 +2,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "drivers/keyboard.h"
-#include "drivers/vga.h"
+#include "../include/kernel/keyboard.h"
+#include "../include/kernel/tty.h"
 
 void kernel_main(void) {
 	terminal_initialize();

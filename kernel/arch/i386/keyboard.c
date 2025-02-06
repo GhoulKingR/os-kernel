@@ -1,5 +1,5 @@
-#include "keyboard.h"
-#include "vga.h"
+#include "../../include/kernel/keyboard.h"
+#include "../../include/kernel/tty.h"
 
 #include <stdint.h>
 #include <stdbool.h>
