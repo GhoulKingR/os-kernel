@@ -1,4 +1,4 @@
-#include "../../include/kernel/tty.h"
+#include "../../include/kernel/tty.hpp"
 
 #include "../../../libc/include/string.h"
 #include <stdint.h>
@@ -39,7 +39,7 @@ size_t terminal_column;
 uint8_t terminal_color;
 uint16_t* terminal_buffer;
 
-void terminal_initialize(void) {
+void kerneltty::initialize(void) {
 	terminal_row = 0;
 	terminal_column = 0;
 	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
@@ -76,7 +76,7 @@ void terminal_scroll(void) {
 	}
 }
 
-void terminal_putchar(char c) {
+void kerneltty::putchar(char c) {
 	if (c == '\0') {
 		return;
 	} else if (c == '\n') {
@@ -100,15 +100,15 @@ void terminal_putchar(char c) {
 
 void terminal_write(const char* data, size_t size) {
 	for (size_t i = 0; i < size; i++) {
-		terminal_putchar(data[i]);
+		kerneltty::putchar(data[i]);
 	}
 }
 
-void terminal_writestring(const char* data) {
+void kerneltty::writestring(const char* data) {
 	terminal_write(data, strlen(data));
 }
 
-void terminal_writeline(const char* data) {
-	terminal_writestring(data);
-	terminal_putchar('\n');
+void kerneltty::writeline(const char* data) {
+	kerneltty::writestring(data);
+	kerneltty::putchar('\n');
 }

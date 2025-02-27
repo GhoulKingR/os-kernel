@@ -1,10 +1,10 @@
-#include "../../include/kernel/keyboard.h"
-#include "../../include/kernel/tty.h"
+#include "../../include/kernel/keyboard.hpp"
+#include "../../include/kernel/tty.hpp"
 
 #include <stdint.h>
 #include <stdbool.h>
 
-extern uint16_t _getkeyboardinput(void);
+extern "C" uint16_t _getkeyboardinput(void);
 
 const char regular[58] = {
 	'\0', '\0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '\b',
@@ -19,7 +19,7 @@ const char shifted[58] = {
 	'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '\0', '\0', '\0', ' ',
 };
 
-char terminal_getchar() {
+char kerneltty::getchar() {
 	bool shiftpressed = false;
 	while(true) {
 		uint8_t keyboard_input = _getkeyboardinput();
@@ -38,17 +38,17 @@ char terminal_getchar() {
 			char result = (shiftpressed ? shifted : regular)[keyboard_input];
 			
 			if (result != '\b')
-				terminal_putchar(result);
+				kerneltty::putchar(result);
 
 			return result;
 		}
 	}
 }
 
-void terminal_getline(char *resultbuffer, size_t size) {
+void kerneltty::getline(char *resultbuffer, size_t size) {
 	uint8_t i = 0;
 	while(i < size - 2) {
-		char input = terminal_getchar();
+		char input = kerneltty::getchar();
 
 		if (input == '\0')
 			continue;
@@ -57,7 +57,7 @@ void terminal_getline(char *resultbuffer, size_t size) {
 
 		if (input == '\b') {
 			if (i > 0) {
-				terminal_putchar(input);
+				kerneltty::putchar(input);
 				resultbuffer[i-1] = ' ';
 				--i;
 			}
