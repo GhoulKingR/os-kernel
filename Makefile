@@ -12,7 +12,7 @@ CCLDFLAGS = -T kernel/arch/i386/link.ld -ffreestanding -O2 -nostdlib -lgcc
 $(OBJFILES):
 	mkdir $(OBJFILES)
 	$(CC) $(CCFLAGS) -c kernel/arch/i386/*.c #-o $(OBJFILES)/drivers.o
-	$(CC) $(CCFLAGS) -c libc/**/*.c #-o $(OBJFILES)/drivers.o
+	$(CC) $(CCFLAGS) -c libc/*.c #-o $(OBJFILES)/drivers.o
 	mv *.o $(OBJFILES)/
 	$(CC) $(CCFLAGS) -c kernel/kernel/kernel.c -o $(OBJFILES)/kernel.o
 	$(AS) -o $(OBJFILES)/asm.o kernel/arch/i386/*.s

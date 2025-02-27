@@ -107,3 +107,8 @@ void terminal_write(const char* data, size_t size) {
 void terminal_writestring(const char* data) {
 	terminal_write(data, strlen(data));
 }
+
+void terminal_writeline(const char* data) {
+	terminal_writestring(data);
+	terminal_putchar('\n');
+}
